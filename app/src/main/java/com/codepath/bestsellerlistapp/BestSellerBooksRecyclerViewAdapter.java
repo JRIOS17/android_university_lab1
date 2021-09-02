@@ -1,10 +1,14 @@
 package com.codepath.bestsellerlistapp;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.bestsellerlistapp.models.BestSellerBook;
@@ -32,11 +36,15 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
         return new BookViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(final BookViewHolder holder, int position) {
         holder.mItem = books.get(position);
         holder.mBookTitle.setText(books.get(position).title);
         holder.mBookAuthor.setText(books.get(position).author);
+        holder.mBookDescription.setText(books.get(position).description);
+        holder.mBookRanking.setText(books.get(position).rank);
+        holder.mBookPurchase.setText("Buy on Amazon");
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +67,10 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
         public final View mView;
         public final TextView mBookTitle;
         public final TextView mBookAuthor;
+        public final TextView mBookDescription;
+        public final TextView mBookRanking;
+        public final Button mBookPurchase;
+        public final ImageView mBookImage;
         public BestSellerBook mItem;
 
         public BookViewHolder(View view) {
@@ -66,6 +78,10 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
             mView = view;
             mBookTitle = (TextView) view.findViewById(R.id.book_title);
             mBookAuthor = (TextView) view.findViewById(R.id.book_author);
+            mBookDescription = (TextView) view.findViewById(R.id.book_description);
+            mBookRanking = (TextView) view.findViewById(R.id.ranking);
+            mBookPurchase = (Button) view.findViewById(R.id.buy_button);
+            mBookImage = (ImageView) view.findViewById(R.id.book_image);
         }
 
         @Override
